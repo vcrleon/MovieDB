@@ -10,7 +10,7 @@ public class Results {
     private int vote_count;
     private int id;
     private boolean video;
-    private int vote_average;
+    private double vote_average;
     private String title;
     private double popularity;
     private String poster_path;
@@ -34,7 +34,7 @@ public class Results {
         return video;
     }
 
-    public int getVote_average() {
+    public double getVote_average() {
         return vote_average;
     }
 
