@@ -1,9 +1,13 @@
 package com.example.c4q.moviedb;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+
+import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
+import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.example.c4q.moviedb.model.UpcomingMovie;
 import com.example.c4q.moviedb.network.MovieService;
 
@@ -18,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FlowingDrawer mDrawer;
     private final String BASE_URL = "https://api.themoviedb.org/3/";
     Retrofit retrofit;
     MovieService movieService;
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+    
         upMovieList = new ArrayList<>();
         connectApi();
     }
@@ -37,13 +42,9 @@ public class MainActivity extends AppCompatActivity {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        
+                .build();     
         movieService = retrofit.create(MovieService.class);
-
         callUpcomingMovie();
-
-
     }
 
     public void callUpcomingMovie() {
@@ -59,8 +60,5 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
     }
-
-
 }
