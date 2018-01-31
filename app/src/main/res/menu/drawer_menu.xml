@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/spot"
+            android:icon="@drawable/spot"
+            android:title="My Feed" />
+        <item
+            android:id="@+id/movies"
+            android:icon="@drawable/movies"
+            android:title="Instagram Direct" />
+        <item
+            android:id="@+id/theater"
+            android:icon="@drawable/theater"
+            android:title="News" />
+
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/menu_settings"
+            android:title="Settings" />
+        <item
+            android:id="@+id/menu_about"
+            android:title="About" />
+    </group>
+</menu>
