@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import com.example.c4q.moviedb.FragmentAndActivities.BlankFragment;
 import com.example.c4q.moviedb.FragmentAndActivities.SearchActivity;
 import com.example.c4q.moviedb.data.base.MovieDataBase;
 import com.example.c4q.moviedb.model.Results;
+import com.example.c4q.moviedb.views.MovieAdapter;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.example.c4q.moviedb.model.UpcomingMovie;
@@ -41,16 +44,26 @@ public class MainActivity extends AppCompatActivity {
     List<UpcomingMovie> upMovieList;
     static SQLiteDatabase db;
     MovieDataBase helper;
+    RecyclerView movieRV;
+    MovieAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        movieRV = findViewById(R.id.rvFeed);
+
+        GridLayoutManager grid = new GridLayoutManager(getApplicationContext(),2);
+        movieRV.setLayoutManager(grid);
+
+
+
         helper = new MovieDataBase(this);
         db = helper.getWritableDatabase();
 
         selectAllCats();
+
         mDrawer = findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
 
@@ -78,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         movieService = retrofit.create(MovieService.class);
-//        callUpcomingMovie();
+        callUpcomingMovie();
     }
 
     public void callUpcomingMovie() {
@@ -115,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("selectAllCats: ", e.toString());
         }
+        adapter = new MovieAdapter(movies);
+        movieRV.setAdapter(adapter);
+
         Log.e("selectAllResults ", String.valueOf(movies.size()));
 
 
