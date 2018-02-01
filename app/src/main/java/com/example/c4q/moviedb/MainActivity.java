@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -51,12 +52,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         movieRV = findViewById(R.id.rvFeed);
 
-        GridLayoutManager grid = new GridLayoutManager(getApplicationContext(),2);
+        GridLayoutManager grid = new GridLayoutManager(getApplicationContext(), 2);
         movieRV.setLayoutManager(grid);
-
 
 
         helper = new MovieDataBase(this);
@@ -141,12 +140,13 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.search, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                Intent intent =new Intent(MainActivity.this,SearchActivity.class);
-                 startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
