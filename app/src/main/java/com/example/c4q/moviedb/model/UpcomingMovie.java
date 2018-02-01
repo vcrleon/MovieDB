@@ -2,11 +2,14 @@ package com.example.c4q.moviedb.model;
 
 import java.util.List;
 
+
 /**
  * Created by c4q on 1/28/18.
  */
 
 public class UpcomingMovie {
+
+
     private List<Results> results;
     private int page;
     private int total_results;
@@ -32,4 +35,6 @@ public class UpcomingMovie {
     public int getTotal_pages() {
         return total_pages;
     }
+
+
 }

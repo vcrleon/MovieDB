@@ -3,23 +3,24 @@
         <item
             android:id="@+id/spot"
             android:icon="@drawable/spot"
-            android:title="My Feed" />
+            android:title="@string/spotlight" />
         <item
             android:id="@+id/movies"
             android:icon="@drawable/movies"
-            android:title="Instagram Direct" />
+            android:title="@string/movies" />
+
         <item
             android:id="@+id/theater"
             android:icon="@drawable/theater"
-            android:title="News" />
+            android:title="@string/theater" />
 
     </group>
     <group android:id="@+id/menu_group_2">
         <item
             android:id="@+id/menu_settings"
-            android:title="Settings" />
+            android:title="@string/settings" />
         <item
             android:id="@+id/menu_about"
-            android:title="About" />
+            android:title="@string/about" />
     </group>
 </menu>

@@ -1,6 +1,7 @@
-package com.example.c4q.moviedb;
+package com.example.c4q.moviedb.FragmentAndActivities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.c4q.moviedb.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BlankFragment extends Fragment {
-
+public class SpotFragment extends Fragment {
     View v;
-    public BlankFragment() {
+
+    public SpotFragment() {
         // Required empty public constructor
     }
 
@@ -27,15 +30,7 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        v =inflater.inflate(R.layout.fragment_blank, container, false);
-        NavigationView vNavigation =  v.findViewById(R.id.vNavigation);
-        vNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Toast.makeText(getActivity(),menuItem.getTitle(),Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }) ;
+        v = inflater.inflate(R.layout.fragment_spot, container, false);
 
         return v;
     }

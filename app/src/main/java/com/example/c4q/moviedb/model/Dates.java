@@ -1,7 +1,7 @@
 package com.example.c4q.moviedb.model;
 
 /**
- * Created by c4q on 1/28/18.
+ * Created by jervon.arnoldd on 1/31/18.
  */
 
 public class Dates {
