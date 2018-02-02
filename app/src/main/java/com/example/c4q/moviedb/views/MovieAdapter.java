@@ -1,15 +1,17 @@
 package com.example.c4q.moviedb.views;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.c4q.moviedb.FragmentAndActivities.DetailsActivity;
 import com.example.c4q.moviedb.R;
 import com.example.c4q.moviedb.model.Results;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -60,11 +62,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             movieTitle = itemView.findViewById(R.id.movie_title);
         }
 
-        public void onBind(Results results) {
+        public void onBind(final Results results) {
             Picasso.with(itemView.getContext())
                     .load("https://image.tmdb.org/t/p/w500" + results.getPoster_path())
                     .into(movieImage);
             movieTitle.setText(results.getTitle());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent i = new Intent(itemView.getContext(), DetailsActivity.class);
+                    Gson gson = new Gson();
+                    String resultsToString = gson.toJson(results);
+                    i.putExtra("Results", resultsToString);
+                    itemView.getContext().startActivity(i);
+
+                }
+            });
         }
     }
 }

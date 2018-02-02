@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FragmentAndActivities.SearchActivity"></activity>
+        <activity android:name=".FragmentAndActivities.SearchActivity" />
+        <activity android:name=".FragmentAndActivities.DetailsActivity"></activity>
     </application>
 
 </manifest>
