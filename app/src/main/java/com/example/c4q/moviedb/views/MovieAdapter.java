@@ -67,8 +67,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     .placeholder(R.mipmap.ic_launcher)
                     .into(movieImage);
 
-            movieTitle.setText(results.getTitle());
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
