@@ -1,6 +1,7 @@
 package com.example.c4q.moviedb.FragmentAndActivities;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -34,8 +35,9 @@ public class BlankFragment extends Fragment {
         // Inflate the layout for this fragment
 
         v =inflater.inflate(R.layout.fragment_blank, container, false);
-        NavigationView vNavigation = v.findViewById(R.id.vNavigation);
-        vNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        NavigationView nav = v.findViewById(R.id.vNavigation);
+        nav.setBackgroundColor(Color.TRANSPARENT);
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
@@ -60,10 +62,7 @@ public class BlankFragment extends Fragment {
                         transaction3.replace(R.id.content, frag);
                         transaction3.commit();
                         return true;
-
                 }
-
-
                 Toast.makeText(getActivity(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
                 return false;
             }

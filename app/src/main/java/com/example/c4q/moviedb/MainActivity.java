@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 import com.example.c4q.moviedb.FragmentAndActivities.BlankFragment;
@@ -54,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         movieRV = findViewById(R.id.rvFeed);
 
-        GridLayoutManager grid = new GridLayoutManager(getApplicationContext(), 2);
+        GridLayoutManager grid = new GridLayoutManager(getApplicationContext(), 3);
         movieRV.setLayoutManager(grid);
 
 
         helper = new MovieDataBase(this);
         db = helper.getWritableDatabase();
 
-        selectAllCats();
+        selectAll();
 
         mDrawer = findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
@@ -71,8 +73,22 @@ public class MainActivity extends AppCompatActivity {
 
         upMovieList = new ArrayList<>();
         connectApi();
+        setupToolbar();
 
 //        getAllResults(cupboard().withDatabase(db).query(Results.class).query());
+    }
+
+    protected void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.headline);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawer.toggleMenu();
+            }
+        });
     }
 
     private void navfill() {
@@ -101,10 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 List<Results> results = response.body().getResults();
 
 
-                for (int i = 0; i < results.size(); i++) {
-                    Log.e("onResponse: ", results.get(i).getTitle());
-                    cupboard().withDatabase(db).put(results.get(i));
-                }
+//                for (int i = 0; i < results.size(); i++) {
+//                    Log.e("onResponse: ", results.get(i).getTitle());
+////                    cupboard().withDatabase(db).put(results.get(i));
+//                }
+                adapter = new MovieAdapter(results);
+                movieRV.setAdapter(adapter);
             }
 
             @Override
@@ -114,21 +132,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    private void selectAllCats() {
+    private void selectAll() {
         List<Results> movies = new ArrayList<>();
 
         try {
             QueryResultIterable<Results> itr = cupboard().withDatabase(db).query(Results.class).query();
-            for (Results cat : itr) {
-                movies.add(cat);
+            for (Results m : itr) {
+                if (!movies.contains(m)) {
+                    movies.add(m);
+                }
             }
             itr.close();
         } catch (Exception e) {
             Log.e("selectAllCats: ", e.toString());
         }
-        adapter = new MovieAdapter(movies);
-        movieRV.setAdapter(adapter);
+
 
         Log.e("selectAllResults ", String.valueOf(movies.size()));
 

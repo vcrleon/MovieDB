@@ -42,8 +42,11 @@ public class SearchActivity extends AppCompatActivity {
     public void showResult(View view) {
         word = mEditWordView.getText().toString();
 
-        String selectionString = "title="+word;
+//        String selectionString = "title="+word;
 //        Long time = Calendar.getInstance().getTimeInMillis();
+
+        String selectionString = "title='"+word+"'";
+
         QueryResultIterable<Results> iterable = cupboard()
                 .withDatabase(db)
                 .query(Results.class)
