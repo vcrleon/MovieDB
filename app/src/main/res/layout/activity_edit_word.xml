@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:onClick="showResult" />
+
     <TextView
         android:id="@+id/search_result"
         android:layout_width="match_parent"

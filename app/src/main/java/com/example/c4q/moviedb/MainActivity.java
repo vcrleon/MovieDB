@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import com.example.c4q.moviedb.FragmentAndActivities.BlankFragment;
+import com.example.c4q.moviedb.FragmentAndActivities.MenuFrag;
 import com.example.c4q.moviedb.FragmentAndActivities.SearchActivity;
 import com.example.c4q.moviedb.data.base.MovieDataBase;
 import com.example.c4q.moviedb.model.Results;
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Retrofit retrofit;
     MovieService movieService;
     List<UpcomingMovie> upMovieList;
+    List<Results> movies;
     static SQLiteDatabase db;
     MovieDataBase helper;
     RecyclerView movieRV;
@@ -53,11 +54,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        selectAll();
+        movies = new ArrayList<>();
         movieRV = findViewById(R.id.rvFeed);
 
         GridLayoutManager grid = new GridLayoutManager(getApplicationContext(), 3);
         movieRV.setLayoutManager(grid);
+        connectApi();
 
 
         helper = new MovieDataBase(this);
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         upMovieList = new ArrayList<>();
-        connectApi();
+
         setupToolbar();
 
 //        getAllResults(cupboard().withDatabase(db).query(Results.class).query());
@@ -93,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void navfill() {
         FragmentManager fm = getSupportFragmentManager();
-        BlankFragment mMenuFragment = (BlankFragment) fm.findFragmentById(R.id.id_container_menu);
+        MenuFrag mMenuFragment = (MenuFrag) fm.findFragmentById(R.id.id_container_menu);
         if (mMenuFragment == null) {
-            mMenuFragment = new BlankFragment();
+            mMenuFragment = new MenuFrag();
             fm.beginTransaction().add(R.id.id_container_menu, mMenuFragment).commit();
         }
     }
@@ -115,42 +118,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UpcomingMovie> call, Response<UpcomingMovie> response) {
                 List<Results> results = response.body().getResults();
-
-
-//                for (int i = 0; i < results.size(); i++) {
+                Log.e("result size", results.size() + "");
+                for (int i = 0; i < results.size(); i++) {
+                    if (!movies.contains(results.get(i))) {
 //                    Log.e("onResponse: ", results.get(i).getTitle());
-////                    cupboard().withDatabase(db).put(results.get(i));
-//                }
+                    cupboard().withDatabase(db).put(results.get(i));
+                    }
+                }
                 adapter = new MovieAdapter(results);
                 movieRV.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(Call<UpcomingMovie> call, Throwable t) {
-                t.printStackTrace();
+                Log.e("Failed,", t.getLocalizedMessage());
             }
         });
     }
 
     private void selectAll() {
-        List<Results> movies = new ArrayList<>();
-
         try {
             QueryResultIterable<Results> itr = cupboard().withDatabase(db).query(Results.class).query();
             for (Results m : itr) {
                 if (!movies.contains(m)) {
                     movies.add(m);
+                } else {
                 }
             }
             itr.close();
         } catch (Exception e) {
             Log.e("selectAllCats: ", e.toString());
         }
+//        adapter = new MovieAdapter(movies);
+//        movieRV.setAdapter(adapter);
 
-
-        Log.e("selectAllResults ", String.valueOf(movies.size()));
-
-
+//        Log.e("selectAllResults ", String.valueOf(movies.size()));
     }
 
     @Override

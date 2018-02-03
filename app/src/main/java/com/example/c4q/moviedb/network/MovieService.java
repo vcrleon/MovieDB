@@ -17,4 +17,13 @@ public interface MovieService {
     Call<UpcomingMovie> getUpcomingMovie(@Query("page") int page);
 
 
+    @GET("movie/popular?api_key=" + KEY)
+    Call<UpcomingMovie> getPopularMoviees(@Query("page") int page);
+
+    @GET("movie/now_playing?api_key=" + KEY)
+    Call<UpcomingMovie> getNowPlaying(@Query("page") int page);
+
+
+
+
 }

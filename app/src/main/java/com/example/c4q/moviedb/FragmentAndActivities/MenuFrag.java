@@ -15,16 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.c4q.moviedb.R;
-import com.example.c4q.moviedb.network.TheaterFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BlankFragment extends Fragment {
+public class MenuFrag extends Fragment {
 
     View v;
-    public BlankFragment() {
+    public MenuFrag() {
         // Required empty public constructor
     }
 

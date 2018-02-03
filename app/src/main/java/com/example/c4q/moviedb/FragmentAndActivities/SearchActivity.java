@@ -3,6 +3,7 @@ package com.example.c4q.moviedb.FragmentAndActivities;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class SearchActivity extends AppCompatActivity {
     private TextView text;
     private EditText mEditWordView;
     private SQLiteDatabase db;
+    private SQLiteDatabase read;
     String word;
 
     @Override
@@ -33,30 +35,25 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_word);
 
-        mEditWordView =  findViewById(R.id.edit);
+        mEditWordView = findViewById(R.id.edit);
         text = findViewById(R.id.search_result);
         MovieDataBase helper = MovieDataBase.getInstance(this);
-        db =helper.getWritableDatabase();
+        db = helper.getWritableDatabase();
+        read=helper.getReadableDatabase();
     }
 
     public void showResult(View view) {
         word = mEditWordView.getText().toString();
-
-//        String selectionString = "title="+word;
-//        Long time = Calendar.getInstance().getTimeInMillis();
-
-        String selectionString = "title='"+word+"'";
-
+        String selectionString = "title='coco'";
         QueryResultIterable<Results> iterable = cupboard()
                 .withDatabase(db)
                 .query(Results.class)
                 .withSelection(selectionString)
                 .query();
         List<Results> list = getListFromQueryResultIterator(iterable);
-        for (int i = 0; i < list.size(); i++) {
-            text.append(list.get(i).getTitle() + "\n");
-        }
+        Log.e("Size",list.size()+"");
     }
+
 
     private List<Results> getListFromQueryResultIterator(QueryResultIterable<Results> b) {
         final List<Results> resultsList = new ArrayList<>();
