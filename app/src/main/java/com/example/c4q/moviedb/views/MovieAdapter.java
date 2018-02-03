@@ -2,6 +2,7 @@ package com.example.c4q.moviedb.views;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +29,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public MovieAdapter(List<Results> movieList) {
         this.movieList = movieList;
     }
+
     public MovieAdapter() {
 
     }
+
+//    public void swapp(List<Results> a){
+//        movieList.clear();
+//        movieList=a
+//    }
+
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,7 +60,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
         private ImageView movieImage;
-        private TextView movieTitle;
 
 
         public MovieViewHolder(View itemView) {
@@ -66,7 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     .load("https://image.tmdb.org/t/p/w500" + results.getPoster_path())
                     .placeholder(R.mipmap.ic_launcher)
                     .into(movieImage);
-
+          
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
