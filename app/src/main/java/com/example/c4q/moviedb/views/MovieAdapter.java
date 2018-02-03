@@ -73,6 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     .load("https://image.tmdb.org/t/p/w500" + results.getPoster_path())
                     .placeholder(R.mipmap.ic_launcher)
                     .into(movieImage);
+          
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
